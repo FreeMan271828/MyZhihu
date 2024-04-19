@@ -27,7 +27,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 @Controller
 @RequestMapping(path = "/zhihu")
-public class PageControl {
+public class HomePageControl {
 
     @Autowired
     private PostService postService;
@@ -38,10 +38,10 @@ public class PageControl {
     @Autowired
     private UserService userService;
 
-    private static final Logger LOG = LoggerFactory.getLogger(PageControl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(HomePageControl.class);
 
     @GetMapping("/homepage")
-    public String homePage(Model model) {
+    public String homePage(@RequestParam String type,Model model) {
         List<Post> posts = postService.listPosts();
         model.addAttribute("posts", posts);
         model.addAttribute("hotSearches",
@@ -51,7 +51,8 @@ public class PageControl {
     }
 
     @GetMapping("/homePage_logsuccess")
-    public String homepageLoginSuccess(Model model, @RequestParam String userId) {
+    public String homepageLoginSuccess(Model model, @RequestParam String userId,@RequestParam String type) {
+        type="home";
         User user = userService.get(userId);
         model.addAttribute("user", user);
         List<Post> posts = postService.listPosts();

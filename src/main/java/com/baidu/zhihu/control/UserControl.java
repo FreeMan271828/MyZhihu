@@ -27,7 +27,7 @@ public class UserControl {
     private final Logger LOG = LoggerFactory.getLogger(UserControl.class);
 
     @PostMapping("/register")
-    public void loginRegister(@RequestParam String name, @RequestParam String password, HttpServletResponse response)
+    public void loginRegister(@RequestParam String name, @RequestParam String password, HttpServletResponse response,@RequestParam String type)
             throws IOException {
 
         List<User> users = userService.list(name);
@@ -49,6 +49,16 @@ public class UserControl {
         }
         //获取user的id
         String userId = userService.get(name, password).getId();
-        response.sendRedirect("/zhihu/homePage_logsuccess?userId="+userId);
+        switch (type) {
+            case "home":
+                response.sendRedirect("/zhihu/homePage_logsuccess?userId="+userId+"type=home");
+                break;
+            case "user":
+                response.sendRedirect("/zhihu/userPage_logsuccess?userId="+userId+"type=user");
+                break;
+            default:
+                response.sendRedirect("/zhihu/homepage?type=home");
+                break;
+        }
     }
 }
