@@ -53,6 +53,6 @@
   border-radius: 2px 2px 2px 2px;
   margin-left: auto;
   position: relative;
-  top: 30px;
-  left: 30px;
+  right: calc( 25% - 0px);
+  bottom: 30px;
 }

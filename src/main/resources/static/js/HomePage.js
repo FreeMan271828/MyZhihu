@@ -20,3 +20,15 @@ for(var i=0;i<btns.length;i++){
       this.style.cursor="auto";
   }
 }
+
+var backToEnd = document.querySelector('.homepage-footer .back-to-end');
+backToEnd.onmouseover=function(){
+  this.style.cursor="pointer";
+}
+backToEnd.onmouseout=function(){
+  this.style.cursor="auto";
+}
+backToEnd.onclick=function(){
+  document.body.scrollTop = 0;
+  document.documentElement.scrollTop = 0;
+}
