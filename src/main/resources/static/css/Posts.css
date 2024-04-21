@@ -327,12 +327,19 @@ p {
 .posts .comments-replies .write-input input {
   width: 578px;
   height: 36px;
+  border: none;
 }
 
 .posts .comments-replies .write-input button {
   width: 60px;
   height: 36px;
+  color: white;
   background: #0084FF;
   border-radius: 2px 2px 2px 2px;
   opacity: 0.5;
+}
+
+.posts .comments-replies .write-input input:focus {
+  border: 2px solid #87CEFA;
+  outline: none;
 }

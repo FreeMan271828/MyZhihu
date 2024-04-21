@@ -51,10 +51,10 @@ public class UserControl {
         String userId = userService.get(name, password).getId();
         switch (type) {
             case "home":
-                response.sendRedirect("/zhihu/homePage_logsuccess?userId="+userId+"type=home");
+                response.sendRedirect("/zhihu/homepage_logsuccess?userId="+userId+"&type=home");
                 break;
             case "user":
-                response.sendRedirect("/zhihu/userPage_logsuccess?userId="+userId+"type=user");
+                response.sendRedirect("/zhihu/userpage_logsuccess?userId="+userId+"&type=user");
                 break;
             default:
                 response.sendRedirect("/zhihu/homepage?type=home");

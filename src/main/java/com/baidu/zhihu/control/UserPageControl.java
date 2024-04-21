@@ -15,9 +15,8 @@ import com.baidu.zhihu.service.UserService;
 
 import org.springframework.web.bind.annotation.GetMapping;
 
-
 @Controller
-@RequestMapping(path="zhihu")
+@RequestMapping(path = "zhihu")
 public class UserPageControl {
 
     @Autowired
@@ -25,16 +24,19 @@ public class UserPageControl {
 
     @Autowired
     private HotSearchService hotSearchService;
-    
+
     @GetMapping("userpage")
-    public String userPage(@RequestParam String type) {
-        type="user";
+    public String userPage(@RequestParam String type, Model model) {
+        type = "user";
+        model.addAttribute("hotSearches",
+                hotSearchService.getHotSearches());
+        model.addAttribute("infoes", getInfo());
         return "UserPage.html";
     }
 
-    @GetMapping("/userPage_logsuccess")
-    public String userpageLoginSuccess(@RequestParam String type,Model model, @RequestParam String userId) {
-        type="user";
+    @GetMapping("/userpage_logsuccess")
+    public String userpageLoginSuccess(@RequestParam String type, Model model, @RequestParam String userId) {
+        type = "user";
         User user = userService.get(userId);
         model.addAttribute("user", user);
         model.addAttribute("hotSearches",
@@ -42,7 +44,7 @@ public class UserPageControl {
         model.addAttribute("infoes", getInfo());
         return "UserPage_LogSuccess.html";
     }
-    
+
     @SuppressWarnings("rawtypes")
     public List getInfo() {
         List<String> infoes = new ArrayList<>();

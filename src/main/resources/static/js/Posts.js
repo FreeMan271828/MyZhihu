@@ -10,6 +10,12 @@ for(var i=0;i<postsDiv.length;i++){
     var commentCount = comments.length; 
     commentsNumDiv[i].innerHTML = commentCount + "条评论";
 }
+//完成userId的配置
+var userIdInfo = document.querySelectorAll('.footer form input[name=userId]');
+for(let i=0;i<userIdInfo.length;i++){
+    if(loginParams.has("userId"))
+        userIdInfo[i].value = loginParams.get("userId");
+}
 //完成点击评论按钮跳出评论
 var commentBtns = document.querySelectorAll('.footer .comment')
 var commentBlocks = document.getElementsByClassName('comments-replies');
@@ -94,13 +100,10 @@ for(let i=0;i<putButtons.length;i++){
 
 //提交评论
 const commentForm = document.querySelector('.write-input');
-const commentInput = commentForm.querySelector("input[name='commentData']");
-//获取URL中的userId
-const userInfo = commentForm.querySelector("input[name='userId']");
+const commentInput = commentForm.querySelector("input[name='content']");
 const urlParams = new URLSearchParams(window.location.search);
 const userId = urlParams.get('userId');
 if(userId){
-    userInfo.value=userId;
 }else{
     console.error("未登录");
 }

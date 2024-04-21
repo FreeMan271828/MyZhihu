@@ -250,6 +250,6 @@ div.nav ul button {
   border: none;
 }
 
-div.nav ul button:first-child {
+div.nav ul button.active {
   border-bottom: 3px solid #1987FB;
 }

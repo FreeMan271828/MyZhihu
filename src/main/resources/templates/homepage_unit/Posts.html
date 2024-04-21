@@ -17,6 +17,7 @@
             <div class="footer">
                 <form method="post" action="/zhihu/addFavor">
                     <input name="postId" type="hidden" th:value="${post.id}">
+                    <input name="userId" type="hidden">
                     <button class="patronize">赞[[${post.favorNum}]]</button>
                 </form>
                 <button class="unapprove">
@@ -90,7 +91,7 @@
                 <form class="write-input" action="/zhihu/addComment" method="post">
                     <input class="data" placeholder="写下你的评论" type="text" name="content">
                     <input type="hidden" name="postId" th:value="${post.id}">
-                    <input type="hidden" name="userId">
+                    <input type="hidden" name="userId" th:value="${param.userId}">
                     <button type="submit">发布</button>
                 </form>
             </div>

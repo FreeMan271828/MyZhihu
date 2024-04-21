@@ -41,7 +41,7 @@ public class HomePageControl {
     private static final Logger LOG = LoggerFactory.getLogger(HomePageControl.class);
 
     @GetMapping("/homepage")
-    public String homePage(@RequestParam String type,Model model) {
+    public String homePage(@RequestParam(required=false) String type, Model model) {
         List<Post> posts = postService.listPosts();
         model.addAttribute("posts", posts);
         model.addAttribute("hotSearches",
@@ -50,9 +50,9 @@ public class HomePageControl {
         return "HomePage.html";
     }
 
-    @GetMapping("/homePage_logsuccess")
-    public String homepageLoginSuccess(Model model, @RequestParam String userId,@RequestParam String type) {
-        type="home";
+    @GetMapping("/homepage_logsuccess")
+    public String homepageLoginSuccess(Model model, @RequestParam String userId, @RequestParam String type) {
+        type = "home";
         User user = userService.get(userId);
         model.addAttribute("user", user);
         List<Post> posts = postService.listPosts();
@@ -64,9 +64,14 @@ public class HomePageControl {
     }
 
     @PostMapping("/addFavor")
-    public void addPostFavor(@RequestParam String postId, HttpServletResponse response) throws IOException {
+    public void addPostFavor(@RequestParam String userId,@RequestParam String postId, HttpServletResponse response) throws IOException {
         postService.addFavor(postId);
-        response.sendRedirect("/zhihu/homepage");
+        if(userId.isBlank()||userId.isEmpty()){
+            response.sendRedirect("/zhihu/homepage?type=home");
+        }
+        else{
+            response.sendRedirect("/zhihu/homepage?"+"userId="+userId+"&type=home");
+        }
     }
 
     @PostMapping("/addComment")
@@ -74,8 +79,8 @@ public class HomePageControl {
             @RequestParam String content, HttpServletResponse response)
             throws IOException {
         // 当前用户不存在
-        if (userId.isEmpty()||userId.isBlank()) {
-            response.sendRedirect("/zhihu/homepage");
+        if (userId.isEmpty() || userId.isBlank()) {
+            response.sendRedirect("/zhihu/homepage?type=home");
             return;
         }
         // 当前帖子或content不存在
@@ -84,7 +89,7 @@ public class HomePageControl {
             LOG.warn("没有找到对应数据");
             return;
         }
-        
+
         Comment comment = new Comment();
         comment.setContent(content);
 
@@ -101,7 +106,7 @@ public class HomePageControl {
         comment.setUser(user);
         commentSerice.addComment(post, comment);
         LOG.info("添加成功");
-        response.sendRedirect("/zhihu/homePage_logsuccess?userId=" + userId);
+        response.sendRedirect("/zhihu/homepage_logsuccess?userId=" + userId+"&type=home");
         return;
     }
 

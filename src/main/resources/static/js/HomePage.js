@@ -32,3 +32,12 @@ backToEnd.onclick=function(){
   document.body.scrollTop = 0;
   document.documentElement.scrollTop = 0;
 }
+
+// 在目标页面 中
+document.addEventListener('DOMContentLoaded', () => {
+  const activeButtonIndex = sessionStorage.getItem('activeButtonIndex');
+  const buttons = navUl[0].querySelectorAll('button');
+  if (activeButtonIndex !== null && buttons.length > activeButtonIndex) {
+  buttons[activeButtonIndex].classList.add('active');
+  }
+});

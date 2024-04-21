@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="www.thymeleaf.org" th:replace="../HomePage.html">
+<html lang="en" xmlns:th="www.thymeleaf.org">
 
     <div th:fragment="login-box">
         <div class="quit-box"></div>
@@ -8,15 +8,10 @@
         </div>
 
         <form class="login-input" action="/zhihu/register" method="post" name="user">
-            <div>
-                <input type="text" autocomplete="off" placeholder="手机号或邮箱" name="name" required class="input-name"/>
-            </div>
-
-            <div>
-                <input type="password" autocomplete="off" placeholder="密码" name="password" required
-                    maxlength="32" class="input-password"/>
-            </div>
-
+            <input type="text" autocomplete="off" placeholder="手机号或邮箱" name="name" required class="input-name"/>
+            <input type="password" autocomplete="off" placeholder="密码" name="password" required
+                maxlength="32" class="input-password"/>
+            <input class="typeParam" type="hidden" name="type">
             <!--登入按钮-->
             <button type="submit" class="login-button">注册/登录</button>
         </form>
